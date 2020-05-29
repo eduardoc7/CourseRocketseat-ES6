@@ -11,6 +11,6 @@
     "@babel/preset-env": "^7.10.1"
   },
   "scripts": {
-    "dev": "babel ./main.js -o ./bundle.js"
+    "dev": "babel ./conceitos/classes/main.js -o ./bundle.js -w"
   }
 }
