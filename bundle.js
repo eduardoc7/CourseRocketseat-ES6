@@ -1,69 +1,93 @@
 "use strict";
 
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-// SPREAD
-// spread, escrito com reticências ..., permite distribuir o conteúdo de 
-// qualquer objeto iterável em múltiplos elementos.
-var arr1 = [5, 2, 1];
-var arr2 = [3, 4, 6];
-var arr3 = [].concat(arr1, arr2);
-console.log(arr3); // alterando o conteudo de um objeto
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-var usuarios = {
-  nome: 'Eduardo',
-  idade: 20
-};
-console.log(usuarios); // '...usuarios', irá copiar todo o objeto de usuarios
-// e após isso sobrepondo a propriedade do objetivo que queremos mudar
-// ja que um objeto nao pode ter duas propriedades iguais 
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-var teste = _objectSpread(_objectSpread({}, usuarios), {}, {
-  nome: 'TESTING',
-  idade: 45
-});
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-console.log(teste); // REST
-// o resto é uma variável do operador spread, também escrito em reticências
-// faz o oposto que o spread
-// irá nos retornar o resto das propriedades
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var usuario = {
-  nome: 'Eduardo',
-  idade: 20,
-  cidade: 'Curitiba'
-}; // pegamos apenas o conteudo de nome e o resto jogamos dentro da variável resto
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-var nome = usuario.nome,
-    resto = _objectWithoutProperties(usuario, ["nome"]);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-console.log(nome, resto); // usando o rest em arrays com a desestruturação
+// Para testar seus conhecimentos com classes, crie uma classe com nome "Admin", essa classe deve
+// extender uma segunda classe chamada "Usuario".
+// A classe usuário deve receber dois parâmetros no método construtor, e-mail e senha, e anotá-los
+// em propriedades da classe. A classe "Admin" por sua vez não recebe parâmetros mas deve
+// repassar os parâmetros de e-mail e senha à classe pai e marcar uma propriedade "admin" como
+// true na classe.
+// Agora com suas classes formatadas, adicione um método na classe Usuario chamado isAdmin que
+// retorna se o usuário é administrador ou não baseado na propriedade admin ser true ou não.
+var Usuario = /*#__PURE__*/function () {
+  function Usuario(email, senha) {
+    _classCallCheck(this, Usuario);
 
-var arr = [1, 2, 3, 4];
-var a = arr[0],
-    b = arr[1],
-    c = arr.slice(2);
-console.log(a);
-console.log(b);
-console.log(c); // usando o rest em funções
-// uma função com multiplos parametros 
-
-function soma() {
-  for (var _len = arguments.length, params = new Array(_len), _key = 0; _key < _len; _key++) {
-    params[_key] = arguments[_key];
+    this.email = email;
+    this.senha = senha;
   }
 
-  return params.reduce(function (total, next) {
-    return total + next;
-  });
-}
+  _createClass(Usuario, [{
+    key: "isAdmin",
+    value: function isAdmin() {
+      console.log(this.test);
+      return this.admin === true;
+    }
+  }, {
+    key: "testando",
+    value: function testando(test) {
+      console.log(test);
+    }
+  }]);
 
-console.log(soma(4, 5, 6, 8));
+  return Usuario;
+}();
+
+;
+
+var Admin = /*#__PURE__*/function (_Usuario) {
+  _inherits(Admin, _Usuario);
+
+  var _super = _createSuper(Admin);
+
+  function Admin(email, senha) {
+    var _this;
+
+    _classCallCheck(this, Admin);
+
+    _this = _super.call(this, email, senha); // o super referencia o construtuctor da classe pai e irá executar exatamente as mesmas coisas
+
+    _this.test = 'test'; // aqui podemos criar novas propriedades, após o super
+
+    _this.admin = true; // o valor do admin no this é atribuido apenas nessa classe, tornando-o indefinido na classe pai, já que la nada foi atribuido 
+
+    return _this;
+  }
+
+  _createClass(Admin, [{
+    key: "mostrar",
+    value: function mostrar() {
+      console.log(this.email);
+    }
+  }]);
+
+  return Admin;
+}(Usuario);
+
+;
+var usuario = new Usuario('email@teste.com', 'senha123');
+var admin = new Admin('email@teste.com', 'senha123');
+console.log(usuario.isAdmin()); // false - porque a classe usuário não é capaz de enxergar o valor da propriedade atribuido no admin do constructor
+
+console.log(admin.isAdmin()); // true

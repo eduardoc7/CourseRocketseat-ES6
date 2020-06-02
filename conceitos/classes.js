@@ -2,6 +2,7 @@
 class List {
     constructor(){ // primeiro método a ser executado toda vez que instaciarmos a classe
         this.data = [];
+        this.todos = [];
     }
 
     add(data){
@@ -13,7 +14,6 @@ class List {
 class todoList extends List{ // esta classe irá herdar as propriedades da classe List. Sendo então, uma classe filha 
     constructor(){ 
         super();
-        
         this.usuario = 'Eduardo';
     }
     mostraUsuario(){
