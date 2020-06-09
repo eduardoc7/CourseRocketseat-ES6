@@ -12,6 +12,6 @@
     "@babel/preset-env": "^7.10.1"
   },
   "scripts": {
-    "dev": "babel ./conceitos/exercicios/exe002.js -o ./bundle.js -w"
+    "dev": "babel ./conceitos/exercicios/exe004.js -o ./bundle.js -w"
   }
 }
