@@ -5,13 +5,16 @@
   "repository": "git@github.com:EduardoCordeiro7/CourseRocketseat-ES6.git",
   "author": "Eduardo Cordeiro <eduardo.cordeiro1@outlook.com>",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.1",
     "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
-    "@babel/preset-env": "^7.10.1"
+    "@babel/preset-env": "^7.10.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "babel-loader": "8.0.0-beta.0"
   },
   "scripts": {
-    "dev": "babel ./conceitos/exercicios/exe005.js -o ./bundle.js -w"
+    "dev": "webpack -w"
   }
 }
