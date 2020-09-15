@@ -1,3 +1,5 @@
+import api from './api';
+
 // definindo uma classe para controlar toda a aplicação
 class App {
   constructor() {
@@ -7,6 +9,7 @@ class App {
     // referenciando o elemento form no html
     this.formElement = document.getElementById('repo-form');
     this.listElement = document.getElementById('repo-list');
+    this.inputElement = document.querySelector('input[name=repository]');
 
     this.registerHandlers();
   }
@@ -16,26 +19,58 @@ class App {
     this.formElement.onsubmit = event => this.addRepository(event);
   }
 
-  // método para adicionar repositórios no array
-  addRepository(event) {
-    event.preventDefault();
+  // método para mostrar o loading:
+  setLoading(loading = true) {
+    if (loading === true) {
+      let loadingElement = document.createElement('span');
+      loadingElement.appendChild(document.createTextNode('Carregando'));
+      loadingElement.setAttribute('id', 'loading');
 
-    this.repositories.push({
-      name: 'nome',
-      description: 'descrição',
-      avatarURL: 'https://avatars0.githubusercontent.com/u/28929274?v=4',
-      htmlURL: 'um link do sei la o que',
-    });
-
-    this.render();
+      this.formElement.appendChild(loadingElement);
+    } else {
+      document.getElementById('loading').remove();
+    }
   }
 
+  // método para adicionar repositórios no array
+  async addRepository(event) {
+    event.preventDefault();
+
+    const repoInput = this.inputElement.value;
+
+    if (repoInput.length === 0)
+      return;
+
+      this.setLoading();
+    try {
+      const response = await api.get(`/repos/${repoInput}`);
+      
+      console.log(response);
+      const { name, description, html_url, owner: { avatar_url } } = response.data;
+  
+      this.repositories.push({
+        name,
+        description,
+        avatar_url,
+        html_url,
+      });
+  
+      this.inputElement.value = '';
+      this.render();
+    } catch (err) {
+      alert('Repositório não encontrado!')
+    }
+
+    this.setLoading(false);
+  }
+
+  // método para renderizar na tela a lista:
   render() {
     this.listElement.innerHTML = '';
 
     this.repositories.forEach(repo => {
       let imgElement = document.createElement('img');
-      imgElement.setAttribute('src', repo.avatarURL);
+      imgElement.setAttribute('src', repo.avatar_url);
 
       let titleElement = document.createElement('strong');
       titleElement.appendChild(document.createTextNode(repo.name));
@@ -45,7 +80,7 @@ class App {
     
       let linkElement = document.createElement('a');
       linkElement.setAttribute('target', '_blank');
-      linkElement.setAttribute('href', repo.htmlURL);
+      linkElement.setAttribute('href', repo.html_url);
       linkElement.appendChild(document.createTextNode('Acessar'));
 
       let listElement = document.createElement('li');
